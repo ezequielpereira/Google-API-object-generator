@@ -51,6 +51,8 @@ def _genProperty(discoveryDoc, prop, parents):
                 return "-9223372036854775808"
             elif prop['format'] == "byte":
                 return "9223372036854775808"
+            elif prop['format'] == "google-duration":
+                return "-315576000000.000000001s"
 
 
 def _genObject(discoveryDoc, objName, parents):
