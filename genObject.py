@@ -77,8 +77,14 @@ def _genObject(discoveryDoc, objName, parents):
                 discoveryDoc, propDict[propName], newParents)
 
     if 'additionalProperties' in obj:
-        result['RANDOM_PROPERTY_NAME'] = _genProperty(
-            discoveryDoc, obj['additionalProperties'], newParents)
+      extras = obj['additionalProperties']
+      result['RANDOM_PROPERTY_NAME'] = _genProperty(
+        discoveryDoc, extras, newParents)
+
+      # HACK: I do not understand why this should be this way
+      if 'type' in extras:
+        if not 'properties' in obj and extras['type'] == "any":
+          return {'@type': "type.googleapis.com/google.protobuf.Empty"}
 
     return result
 
