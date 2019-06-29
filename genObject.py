@@ -37,6 +37,8 @@ def _genProperty(discoveryDoc, prop, parents):
         elif prop['type'] == "object":
             return _genObject(discoveryDoc, prop, parents)
         elif prop['type'] == "string":
+            if 'enum' in prop:
+              return prop['enum'][0]
             if 'format' not in prop:
                 return "RANDOM_STRING"
             elif prop['format'] == "byte":
